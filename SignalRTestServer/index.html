@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>TrafficDataCollector.TestClient</title>
+    <meta charset="utf-8" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.6.4.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalR-2.2.0.min.js"></script>
+    <script src="http://localhost:8500/signalr/hubs"></script>
+</head>
+<body>
+    <h1>TrafficDataCollector.TestClient</h1>
+    <div id="detectorData"></div>
+    <script>
+        $(function () {
+            $.connection.hub.url = 'http://localhost:8500/signalr';
+            var trafficDataHub = $.connection.trafficDataHub;
+            trafficDataHub.client.onNewDetectorData = function (data) {
+                log(JSON.stringify(data));
+            };
+            $.connection.hub.stateChanged(function (change) {
+                var message;
+                if (change.newState === $.signalR.connectionState.connecting) {
+                    message = 'connecting';
+                }
+                else if (change.newState === $.signalR.connectionState.connected) {
+                    message = 'connected';
+                }
+                else if (change.newState === $.signalR.connectionState.reconnecting) {
+                    message = 'reconnecting';
+                }
+                else if (change.newState === $.signalR.connectionState.disconnected) {
+                    message = 'disconnected';
+                }
+                log(message);
+            });
+            $.connection.hub.start();
+
+            function log(message) {
+                var time = new Date().toLocaleString();
+                $('#detectorData').prepend("<b>" + time + "</b> <span>" + message + "</span><hr/>");
+            }
+        });
+    </script>
+</body>
+</html>

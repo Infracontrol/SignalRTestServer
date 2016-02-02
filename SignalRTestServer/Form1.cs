@@ -38,6 +38,8 @@ namespace SignalRTestServer
                         EnableJSONP = true
                     });
                 });
+                startButton.Enabled = false;
+                stopButton.Enabled = true;
             }
         }
 
@@ -47,6 +49,8 @@ namespace SignalRTestServer
             {
                 server.Dispose();
                 server = null;
+                startButton.Enabled = true;
+                stopButton.Enabled = false;
             }
         }
     }

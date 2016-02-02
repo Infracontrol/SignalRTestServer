@@ -45,6 +45,7 @@
             // 
             // stopButton
             // 
+            this.stopButton.Enabled = false;
             this.stopButton.Location = new System.Drawing.Point(150, 38);
             this.stopButton.Name = "stopButton";
             this.stopButton.Size = new System.Drawing.Size(131, 23);
@@ -69,6 +70,7 @@
             this.Controls.Add(this.addressTextBox);
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.startButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "SignalR Test Server";
